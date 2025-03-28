@@ -1,0 +1,45 @@
+{
+  "name": "@docs4ai/sdk",
+  "version": "1.0.0",
+  "description": "Documentation SDK for framework documentation access",
+  "main": "dist/javascript/index.js",
+  "module": "dist/javascript/index.mjs",
+  "types": "dist/typescript/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/javascript/index.js",
+      "import": "./dist/javascript/index.mjs",
+      "types": "./dist/typescript/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "npm run build:ts && npm run build:js",
+    "build:ts": "tsc",
+    "build:js": "esbuild src/javascript/index.js --bundle --platform=neutral --outfile=dist/javascript/index.js --format=cjs && esbuild src/javascript/index.js --bundle --platform=neutral --outfile=dist/javascript/index.mjs --format=esm",
+    "test": "jest",
+    "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "documentation",
+    "sdk",
+    "typescript",
+    "javascript",
+    "nextjs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "esbuild": "^0.17.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "prettier": "^2.0.0",
+    "ts-jest": "^29.0.0",
+    "typescript": "^5.0.0"
+  }
+}

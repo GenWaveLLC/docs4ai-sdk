@@ -1,0 +1,134 @@
+1. i need you to create SDK key for both JS and TS and we should be able to integrate it.
+2. see as we know we will be using next js  Next.js 14.2.24
+and to connect frontend to backend(express) we will use sdk which is a better way to do it as its like a wrapper
+
+
+import { Docs4AI } from '@docs4ai/sdk';
+
+const docs4ai = new Docs4AI({
+  apiKey: 'YOUR_API_KEY',
+});
+
+async function getDocumentation() {
+  const response = await docs4ai.query({
+    framework: 'react',
+    version: '18.2.0',
+    query: 'How to use useState hook',
+  });
+  
+  console.log(response.content);
+  console.log('Sources:', response.sources);
+}
+
+getDocumentation();
+
+so we can see that but internally it will call the fetch command of nextjs right
+so we need to create something like this..
+
+but i will give you commands for which you should do this understand
+i will give you some api commands to which we should apply okay..
+## 2. Framework & Documentation Retrieval (Docs Tier)
+
+### 2.1 GET /docs/frameworks
+
+**Description:** Retrieves a list of supported frameworks and versions.
+**Response:**
+
+```json 
+{
+  "frameworks": [
+    { "name": "React", "versions": ["18", "17"] },
+    { "name": "Angular", "versions": ["16", "15"] }
+  ]
+}
+```
+
+```adf 
+{"type":"heading","attrs":{"level":3},"content":[{"text":"2.2 ","type":"text"},{"text":"GET /docs/:framework/:version/chapters","type":"text","marks":[{"type":"annotation","attrs":{"annotationType":"inlineComment","id":"5231179a-7c3e-4181-a1db-7097470be5b0"}}]}]}
+```
+
+**Description:** Retrieves a list of all chapters with their corresponding chapter IDs for a specific documentation framework and version.
+**Response:**
+
+```json 
+{
+  "chapters": [
+    { "title": "Introduction to Hooks", "chapterId": "hooks_intro" },
+    { "title": "useEffect Hook", "chapterId": "hooks_useeffect" },
+    { "title": "useState Hook", "chapterId": "hooks_usestate" }
+  ]
+}
+```
+
+### 2.3 GET /docs/:framework/:version/:chapterId
+
+**Description:** Retrieves raw documentation for a specific chapter.
+**Response:**
+
+```json 
+{
+  "title": "Introduction to Hooks",
+  "content": "Hooks allow you to use state and lifecycle methods in function components..."
+}
+```
+
+### 2.4 GET /docs/search?framework=X&version=Y&q=Z
+
+**Description:** Searches for documentation based on a query.
+**Response:**
+
+```json 
+{
+  "results": [
+    { "title": "useEffect Hook", "snippet": "useEffect is used for side effects...", "chapterId": "hooks_useeffect" },
+    { "title": "useState Hook", "snippet": "useState lets you add state to function components...", "chapterId": "hooks_usestate" }
+  ]
+}
+```
+
+# 13. List all frameworks and their versions
+curl -X GET http://localhost:3000/docs/frameworks -H "Authorization: Bearer your-jwt-token"
+
+# 14. Get chapters for specific framework version
+curl -X GET http://localhost:3000/docs/framework-name/version/chapters -H "Authorization: Bearer your-jwt-token"
+
+# 15. Get specific chapter content
+curl -X GET http://localhost:3000/docs/framework-name/version/chapter-id -H "Authorization: Bearer your-jwt-token"
+
+# 16. Search documentation
+curl -X GET "http://localhost:3000/docs/search?q=search-query&framework=optional-framework&version=optional-version" -H "Authorization: Bearer your-jwt-token"
+
+# 17. Query documentation with AI
+curl -X POST http://localhost:3000/ai-docs/query \
+  -H "Authorization: Bearer your-jwt-token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "framework": "react",
+    "version": "18",
+    "question": "How do I use React hooks?"
+  }'
+
+
+curl -X POST http://localhost:3000/chat/completions \
+  -H "Authorization: Bearer your-jwt-token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "ai-docs-pro-1.0",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an expert React developer."
+      },
+      {
+        "role": "user",
+        "content": "Explain useEffect with dependencies array."
+      }
+    ],
+    "max_tokens": 300,
+    "temperature": 0.3,
+    "top_p": 1.0,
+    "n": 1,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0
+  }'
+  
