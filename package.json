@@ -17,9 +17,34 @@
     "build:ts": "tsc",
     "build:js": "esbuild src/javascript/index.js --bundle --platform=neutral --outfile=dist/javascript/index.js --format=cjs && esbuild src/javascript/index.js --bundle --platform=neutral --outfile=dist/javascript/index.mjs --format=esm",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint src",
     "format": "prettier --write \"src/**/*.{ts,js}\"",
     "prepare": "npm run build"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      "^.+\\.ts$": "ts-jest",
+      "^.+\\.js$": "babel-jest"
+    },
+    "testMatch": [
+      "**/src/**/__tests__/**/*.[jt]s?(x)",
+      "**/src/**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.[jt]s",
+      "!src/**/*.d.ts",
+      "!src/**/__tests__/**"
+    ]
   },
   "keywords": [
     "documentation",
@@ -31,10 +56,13 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
     "@types/jest": "^29.0.0",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "babel-jest": "^29.0.0",
     "esbuild": "^0.17.0",
     "eslint": "^8.0.0",
     "jest": "^29.0.0",
