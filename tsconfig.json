@@ -4,16 +4,19 @@
     "module": "esnext",
     "lib": ["es2021", "dom"],
     "declaration": true,
-    "outDir": "./dist/typescript",
-    "rootDir": "./src/typescript",
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "allowJs": true,
+    "checkJs": true
   },
-  "include": ["src/typescript/**/*"],
-  "exclude": ["node_modules", "**/*.test.ts", "dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.js", "dist"]
 }

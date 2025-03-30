@@ -5,20 +5,20 @@
 ### Core Technologies
 - TypeScript 5.x
 - JavaScript (ES2021+)
-- Node.js 18+ (development)
-- Next.js 14.2.24 (integration target)
+- Node.js 18+ (for development and fetch API)
+- Jest 29.x (testing)
 
 ### Development Tools
 - npm (package management)
-- Jest (testing)
+- Jest (testing with ts-jest)
 - ESLint (linting)
 - Prettier (code formatting)
-- TypeDoc (documentation generation)
+- tsd (type testing)
 
 ### Build Tools
-- tsc (TypeScript compilation)
+- tsc (type generation)
 - esbuild (bundling)
-- rollup (package optimization)
+- ts-jest (test transpilation)
 
 ## Development Setup
 
@@ -29,9 +29,8 @@ node -v  # >= 18.0.0
 npm -v   # >= 8.0.0
 
 # Project initialization
-npm init -y
-npm install typescript @types/node --save-dev
-npx tsc --init
+npm install
+npm run build
 ```
 
 ### Project Configuration
@@ -44,14 +43,21 @@ npx tsc --init
     "module": "esnext",
     "lib": ["es2021", "dom"],
     "declaration": true,
+    "emitDeclarationOnly": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "checkJs": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.js", "dist"]
 }
 ```
 
@@ -60,24 +66,39 @@ npx tsc --init
 {
   "name": "@docs4ai/sdk",
   "version": "1.0.0",
-  "description": "Documentation SDK for framework documentation access",
-  "main": "dist/javascript/index.js",
-  "module": "dist/javascript/index.mjs",
-  "types": "dist/typescript/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/javascript/index.js",
-      "import": "./dist/javascript/index.mjs",
-      "types": "./dist/typescript/index.d.ts"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
-    "build": "npm run build:ts && npm run build:js",
-    "build:ts": "tsc",
-    "build:js": "node build.js",
-    "test": "jest",
-    "lint": "eslint src",
-    "format": "prettier --write \"src/**/*.{ts,js}\""
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "esbuild src/index.js --bundle --platform=neutral --outfile=dist/index.js --format=cjs && esbuild src/index.js --bundle --platform=neutral --outfile=dist/index.mjs --format=esm",
+    "test": "npm run test:unit && npm run test:types"
+  }
+}
+```
+
+### Jest Configuration
+```json
+{
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      "^.+\\.ts$": ["ts-jest", {
+        "tsconfig": "tsconfig.json",
+        "allowJs": true
+      }],
+      "^.+\\.js$": "babel-jest"
+    }
   }
 }
 ```
@@ -88,37 +109,39 @@ npx tsc --init
 ```json
 {
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/node": "^18.0.0",
-    "jest": "^29.0.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
     "@types/jest": "^29.0.0",
-    "ts-jest": "^29.0.0",
-    "eslint": "^8.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
+    "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "prettier": "^2.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "babel-jest": "^29.0.0",
     "esbuild": "^0.17.0",
-    "rollup": "^3.0.0"
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "prettier": "^2.0.0",
+    "ts-jest": "^29.0.0",
+    "tsd": "^0.31.2",
+    "typescript": "^5.0.0"
   }
 }
 ```
 
 ### Production Dependencies
-- Zero runtime dependencies
-- All HTTP functionality uses native fetch
-- JSON parsing/stringifying uses native methods
+- Zero dependencies
+- Native fetch API
+- Native ES modules/CommonJS support
 
 ## Build Process
 
-### 1. TypeScript Build
+### 1. Type Generation
 ```mermaid
 flowchart LR
-    TS[TypeScript Source] --> TSC[TSC Compiler]
-    TSC --> Defs[Type Definitions]
-    TSC --> JS[JavaScript Output]
+    JS[JavaScript Source] --> TSC[TSC]
+    TSC --> DTS[Type Definitions]
 ```
 
-### 2. JavaScript Build
+### 2. Bundle Generation
 ```mermaid
 flowchart LR
     JS[JavaScript Source] --> ESBuild[ESBuild]
@@ -128,40 +151,62 @@ flowchart LR
 
 ## Testing Strategy
 
-### Unit Tests
-- Jest for test running
-- Individual component testing
-- Mocked HTTP responses
-- Type checking tests
+### Unit Tests (index.test.js)
+- Function testing
+- Error cases
+- API integration
+- Mock responses
 
-### Integration Tests
-- End-to-end API tests
-- Next.js integration tests
-- Browser compatibility tests
-- Node.js compatibility tests
+### Type Tests (type-validation.test.ts)
+- Type definitions
+- Runtime validation
+- Response types
+- Error types
 
 ## Documentation
 
 ### API Documentation
-- TypeDoc for API documentation
-- Markdown for guides
 - JSDoc comments
+- Type definitions
 - Usage examples
+- Integration guides
 
 ### Distribution
 - npm package
-- CDN availability
-- Source maps
+- Source maps (planned)
+- CDN availability (planned)
 - Type definitions
 
 ## Compatibility
 
 ### Browser Support
-- Modern browsers (last 2 versions)
-- IE11 not supported
-- Uses native fetch API
+- Modern browsers
+- Native fetch API required
+- ESM module support
+- No IE11 support
 
 ### Node.js Support
-- Node.js 18+ (for fetch API)
-- Both CJS and ESM support
-- Native TypeScript support
+- Node.js 18+
+- Native fetch API
+- ESM modules
+- CommonJS compatibility
+
+## Performance Considerations
+
+### Bundle Size
+- Minimal dependencies
+- Tree-shaking support
+- Separate type definitions
+- Optimized builds
+
+### Network
+- Native fetch
+- JSON parsing
+- Streaming support
+- Error handling
+
+### Types
+- Zero runtime overhead
+- Development-time validation
+- Editor support
+- Smaller production builds
