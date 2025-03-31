@@ -1,0 +1,31 @@
+# Cline Project Rules
+
+## Project Patterns
+- Document patterns discovered while working on the project
+- Include common solutions to recurring problems
+- Note any project-specific conventions
+
+## User Preferences
+- Document user's preferred working styles
+- Note communication preferences
+- Record common workflow patterns
+
+## Implementation Guidelines
+- Note best practices specific to this project
+- Document coding standards
+- Record architectural decisions
+
+## Tool Usage
+- Document effective tool combinations
+- Note any tool-specific configurations
+- Record common command patterns
+
+## Known Solutions
+- Document solutions to common issues
+- Record workarounds for known limitations
+- Note debugging strategies
+
+## Project Evolution
+- Track important project decisions
+- Document reasoning behind changes
+- Note migration patterns
