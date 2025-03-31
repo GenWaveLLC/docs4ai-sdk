@@ -76,11 +76,11 @@ describe('Docs4AI SDK', () => {
       const mockResponse = { ok: true, json: () => Promise.resolve([{ title: 'Result', snippet: 'Text' }]) };
       global.fetch.mockResolvedValueOnce(mockResponse);
 
-      const params = { framework: 'react', version: '17.0.0', query: 'hooks' };
+      const params = { framework: 'react', version: '17.0.0', q: 'hooks' };
       const result = await sdk.search(params);
       expect(result).toEqual([{ title: 'Result', snippet: 'Text' }]);
       expect(fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/docs/search?framework=react&version=17.0.0&query=hooks'),
+        expect.stringContaining('/docs/search?framework=react&version=17.0.0&q=hooks'),
         expect.objectContaining({
           method: 'GET'
         })

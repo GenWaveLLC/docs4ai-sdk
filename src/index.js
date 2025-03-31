@@ -88,7 +88,7 @@ export class Docs4AI {
     if (!params || typeof params !== 'object') {
       throw new Docs4AIError('VALIDATION_ERROR', 'Search parameters must be an object');
     }
-    if (!params.query || !params.framework || !params.version) {
+    if (!params.q || !params.framework || !params.version) {
       throw new Docs4AIError('VALIDATION_ERROR', 'Search requires query, framework and version parameters');
     }
     return this.request('/docs/search', { params });
@@ -154,7 +154,7 @@ export class Docs4AI {
       const response = await fetch(url.toString(), {
         method: options.method || 'GET',
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          'x-api-key': this.apiKey,
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },

@@ -71,7 +71,7 @@ describe('Type Definitions', () => {
     const searchParams: SearchParams = {
       framework: 'react',
       version: '17.0.0',
-      query: 'hooks'
+      q: 'hooks'
     };
     const searchResults = await sdk.search(searchParams);
     expectType<SearchResult[]>(searchResults);

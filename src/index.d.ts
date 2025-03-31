@@ -8,7 +8,7 @@ export interface Docs4AIConfig {
 export interface SearchParams {
   framework: string;
   version: string;
-  query: string;
+  q: string;
 }
 
 export interface FrameworkInfo {
