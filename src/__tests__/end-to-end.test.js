@@ -1,5 +1,14 @@
+// Load environment variables from the .env file
+require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+
+// Load the API keys from the JSON file dynamically
+const apiKeysPath = process.env.API_KEYS_PATH;
+const resolvedPath = path.resolve(apiKeysPath);
+const apiKeys = JSON.parse(fs.readFileSync(resolvedPath, 'utf8'));
+
 const { Docs4AI } = require('../index.js');
-const apiKeys = require('../sdk.json');
 
 describe('End-to-End Tests', () => {
   // Increase timeout for real API calls
@@ -65,7 +74,6 @@ describe('End-to-End Tests', () => {
   });
 
   it('should search documentation', async () => {
-    // Define searchUrl outside try block so it's available in catch
     const searchUrl = `${sdk.baseUrl}/docs/search?framework=react&version=18&q=hooks`;
     try {
       console.log('Making request to:', searchUrl);

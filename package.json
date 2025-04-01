@@ -33,10 +33,13 @@
       "js"
     ],
     "transform": {
-      "^.+\\.ts$": ["ts-jest", {
-        "tsconfig": "tsconfig.json",
-        "allowJs": true
-      }],
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.json",
+          "allowJs": true
+        }
+      ],
       "^.+\\.js$": "babel-jest"
     },
     "testMatch": [
@@ -73,5 +76,8 @@
     "ts-jest": "^29.0.0",
     "tsd": "^0.31.2",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
   }
 }
