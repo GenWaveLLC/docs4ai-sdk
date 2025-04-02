@@ -1,3 +1,2 @@
- first i should ask that in sdk-sqlite folder which needs to be created in backend-folder is scripting it so that its hardcoded
-so my doubt is should we create 2 table--user information and another is api-key table like how we did before and add the data in the sdk-sqlite file then when that is loaded into db, we should be able to load the api-keys in JSON format in sdk file..
-then use that keys in sdk file which is passed to backend file in end-to-end.test.js
+npm test src/__tests__/end-to-end.test.js
+

@@ -15,6 +15,7 @@ lib/
 .idea/
 *.swp
 *.swo
+information.txt
 
 # Environment variables
 .env
