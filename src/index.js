@@ -35,13 +35,7 @@ export class Docs4AI {
    * @param {Docs4AIConfig} config
    */
   constructor(config) {
-    // Runtime validation
-    if (!config || typeof config.apiKey !== 'string') {
-      throw new Docs4AIError('CONFIG_ERROR', 'API key is required');
-    }
-    
-    this.apiKey = config.apiKey;
-    this.baseUrl = config.baseUrl || 'http://localhost:3000';
+    this.baseUrl = config?.baseUrl || 'http://localhost:3000';
   }
 
   /**
@@ -154,7 +148,6 @@ export class Docs4AI {
       const response = await fetch(url.toString(), {
         method: options.method || 'GET',
         headers: {
-          'x-api-key': this.apiKey,
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },

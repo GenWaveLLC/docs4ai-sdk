@@ -1,7 +1,6 @@
 // Type definitions for Docs4AI SDK
 
 export interface Docs4AIConfig {
-  apiKey: string;
   baseUrl?: string;
 }
 

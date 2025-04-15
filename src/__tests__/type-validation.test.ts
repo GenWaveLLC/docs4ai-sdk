@@ -37,7 +37,6 @@ describe('Type Definitions', () => {
 
   it('should properly type the SDK constructor', () => {
     const config: Docs4AIConfig = {
-      apiKey: 'test-key',
       baseUrl: 'https://test.com'
     };
     const sdk = new Docs4AI(config);
@@ -45,7 +44,7 @@ describe('Type Definitions', () => {
   });
 
   it('should properly type API responses', async () => {
-    const sdk = new Docs4AI({ apiKey: 'test-key' });
+    const sdk = new Docs4AI({});
 
     // Mock frameworks response
     const frameworksData: FrameworkInfo[] = [{ name: 'react', versions: ['17.0.0'] }];

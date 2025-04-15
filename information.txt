@@ -1,2 +1,82 @@
 npm test src/__tests__/end-to-end.test.js
 
+  // "vue": {
+    //   "3": {
+    //     "metadata":{
+    //       "version":"3.3.4",
+    //       "tags":["vue","javascript","frontend"],
+    //       "description":"Vue.js 3 is a progressive JavaScript framework known for its composition API and improved performance.",
+    //       "icon-url":"https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg",
+    //       "framework-url":"https://vuejs.org/"
+    //     },
+    //     "chapters": {
+    //       "composition_api": {
+    //         "title": "Introduction to Composition API",
+    //         "content": "Vue 3 introduced the Composition API as an alternative to the Options API for better state management..."
+    //       },
+    //       "reactivity": {
+    //         "title": "Understanding Reactivity in Vue 3",
+    //         "content": "Vue 3 uses a new Proxy-based reactivity system for better performance and scalability..."
+    //       }
+    //     }
+    //   },
+    //   "2": {
+    //     "metadata":{
+    //       "version":"2.7.14",
+    //       "tags":["vue","javascript","frontend"],
+    //       "description":"Vue.js 2 is a progressive JavaScript framework for building user interfaces, focused on declarative rendering and component composition.",
+    //       "icon-url":"https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg",
+    //       "framework-url":"https://v2.vuejs.org/"
+    //     },
+    //     "chapters": {
+    //       "vue_directives": {
+    //         "title": "Understanding Vue Directives",
+    //         "content": "Vue directives are special tokens in the markup that tell Vue to do something on an element..."
+    //       },
+    //       "vue_router": {
+    //         "title": "Getting Started with Vue Router",
+    //         "content": "Vue Router is the official routing library for Vue.js, enabling navigation between different views..."
+    //       }
+    //     }
+    //   }
+    // },
+    // "angular": {
+    //   "12": {
+    //     "metadata":{
+    //       "version":"12.2.17",
+    //       "tags":["angular","typescript","frontend"],
+    //       "description":"Angular 12 is a platform for building mobile and desktop web applications using TypeScript/JavaScript and other languages.",
+    //       "icon-url":"https://angular.io/assets/images/logos/angular/angular.svg",
+    //       "framework-url":"https://angular.io/"
+    //     },
+    //     "chapters": {
+    //       "services_and_di": {
+    //         "title": "Services and Dependency Injection",
+    //         "content": "Angular services are used for sharing data and logic across multiple components..."
+    //       },
+    //       "observables_rxjs": {
+    //         "title": "Using Observables with RxJS",
+    //         "content": "Angular uses RxJS Observables for handling asynchronous operations like HTTP requests..."
+    //       }
+    //     }
+    //   },
+    //   "10": {
+    //     "metadata":{
+    //       "version":"10.2.5",
+    //       "tags":["angular","typescript","frontend"],
+    //       "description":"Angular 10 introduced stricter type checking and modern browser optimizations for better performance.",
+    //       "icon-url":"https://angular.io/assets/images/logos/angular/angular.svg",
+    //       "framework-url":"https://angular.io/"
+    //     },
+    //     "chapters": {
+    //       "angular_forms": {
+    //         "title": "Understanding Angular Forms",
+    //         "content": "Angular provides both template-driven and reactive forms for handling user input..."
+    //       },
+    //       "routing_module": {
+    //         "title": "Angular Routing Module",
+    //         "content": "The Angular Router enables navigation between different views in an application..."
+    //       }
+    //     }
+    //   }
+    // }
